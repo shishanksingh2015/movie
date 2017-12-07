@@ -5,20 +5,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.shishank.android.BuildConfig;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
 
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -31,31 +26,20 @@ public class ApiModule {
     @Singleton
     ApiService providesApiService() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        // TODO: 08/04/16 might want to remove this in prod
-        builder.hostnameVerifier(new HostnameVerifier() {
-            @Override
-            public boolean verify(String str, SSLSession sslSession) {
-                return true;
-            }
-        });
+        builder.hostnameVerifier((str, sslSession) -> true);
 
         builder.connectTimeout(30, TimeUnit.SECONDS);
         builder.readTimeout(30, TimeUnit.SECONDS);
         builder.writeTimeout(30, TimeUnit.SECONDS);
 
         // Add headers
-        builder.interceptors().add(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
+        builder.interceptors().add(chain -> {
+            Request request = chain.request();
 
-                request = request.newBuilder()
-                        // // TODO: 08/04/16 add project specific stuff here
-                        .addHeader("Authorization", "Basic YWRtaW46ZG90c2xhc2g=")
-                        .build();
-                return chain.proceed(request);
+            request = request.newBuilder()
+                    .build();
+            return chain.proceed(request);
 
-            }
         });
 
         // Logging
