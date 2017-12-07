@@ -1,0 +1,155 @@
+apply plugin: 'checkstyle'
+apply plugin: 'com.android.application'
+
+checkstyle {
+    toolVersion = '7.6.1'
+}
+
+preBuild.dependsOn 'checkstyle'
+check.dependsOn 'checkstyle'
+
+
+task checkstyle(type: Checkstyle) {
+    configFile file("${project.rootDir}/config/quality/checkstyle.xml")
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/test/java/com/shishank/android/**'
+
+    classpath = files()
+
+    // set to false if you want to consider warning as error
+    ignoreFailures = false
+}
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+
+    final API_URL_DEV = "https://www.google.com/";
+    final API_URL_PROD = "https://www.google.com/";
+
+    defaultConfig {
+        applicationId "com.shishank.android"
+        minSdkVersion 15
+        targetSdkVersion 26
+
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+
+        // setting custom name for apk
+        project.ext.set("archivesBaseName", "movie-" + defaultConfig.versionName
+                + "-vc" + defaultConfig.versionCode)
+    }
+
+    signingConfigs {
+
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            minifyEnabled false
+            buildConfigField 'String', 'API_URL', "\"" + API_URL_DEV + "\""
+        }
+
+
+        release {
+            applicationIdSuffix '.release'
+            buildConfigField 'String', 'API_URL', "\"" + API_URL_DEV + "\""
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        // set to true to turn off analysis progress reporting by lint
+        quiet true
+        // if true, stop the gradle build if errors are found
+        abortOnError false
+        // if true, only report errors
+        ignoreWarnings false
+        // if true, emit full/absolute paths to files with errors (true by default)
+        //absolutePaths true
+        // if true, check all issues, including those that are off by default
+        checkAllWarnings true
+        // if true, treat all warnings as errors
+        warningsAsErrors false
+        // turn off checking the given issue id's
+        disable 'TypographyFractions', 'TypographyQuotes'
+        // turn on the given issue id's
+        enable 'RtlHardcoded', 'RtlCompat', 'RtlEnabled'
+        // check *only* the given issue id's
+        //check 'NewApi', 'InlinedApi'
+        // if true, don't include source code lines in the error output
+        noLines false
+        // if true, show all locations for an error, do not truncate lists, etc.
+        showAll true
+        // Fallback lint configuration (default severities, etc.)
+        lintConfig file("default-lint.xml")
+        // if true, generate a text report of issues (false by default)
+        textReport false
+        // location to write the output; can be a file or 'stdout'
+        textOutput 'stdout'
+        // if true, generate an XML report for use by for example Jenkins
+        xmlReport false
+        // file to write report to (if not specified, defaults to lint-results.xml)
+        xmlOutput file("build/reports/lint/lint-report.xml")
+        // if true, generate an HTML report (with issue explanations, sourcecode, etc)
+        htmlReport true
+        // optional path to report (default will be lint-results.html in the builddir)
+        htmlOutput file("build/reports/lint/lint-report.html")
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support:design:$supportLibVersion"
+
+    // Use Retrofit for API interaction
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+    // design support
+    implementation "com.android.support:design:$supportLibVersion"
+
+    // Lombok
+    // https://projectlombok.org/setup/android.html
+    compileOnly 'org.projectlombok:lombok:1.16.18'
+    annotationProcessor "org.projectlombok:lombok:1.16.18"
+
+    // Timber for logging
+    implementation 'com.jakewharton.timber:timber:4.5.1'
+
+    // Butterknife for view injection
+    implementation 'com.jakewharton:butterknife:8.8.1'
+
+    // Dagger 2
+    // Dagger 2 dependencies
+    implementation 'com.google.dagger:dagger:2.11'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+
+    //Tests
+    // Required -- JUnit 4 framework
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation "com.android.support:support-annotations:$supportLibVersion"
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test:rules:1.0.1'
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:2.10.0'
+    // Optional -- UI testing with Espresso
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    // RX Android
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+}
