@@ -47,6 +47,9 @@ public class MovieListPresenterTest {
     @Mock
     private Contracts.View movieView;
 
+    @Mock
+    private ApiComponent apiComponent;
+
     @BeforeClass
     public static void setupRxSchedulers() {
         Scheduler immediate = new Scheduler() {
@@ -71,7 +74,6 @@ public class MovieListPresenterTest {
 
     @Before
     public void setup() {
-        ((DebugBaseApplication) DebugBaseApplication.getInstance()).enableMockMode();
         MockitoAnnotations.initMocks(this);
     }
 
@@ -82,19 +84,22 @@ public class MovieListPresenterTest {
 
     @Test
     public void validDataReturned() {
-        BaseApplication application = DebugBaseApplication.getInstance();
         DiscoverResponse response = getResponse();
 
-        PowerMockito.mockStatic(ApiService.class);
+        BaseApplication mockApplication = new DebugBaseApplication();
+        ((DebugBaseApplication)mockApplication).enableMockMode();
         PowerMockito.mockStatic(BaseApplication.class);
-        Mockito.when(BaseApplication.getInstance()).thenReturn(application);
-        Mockito.when(BaseApplication.getInstance().getApiComponent()).thenReturn(application.getApiComponent());
+        Mockito.when(BaseApplication.getInstance()).thenReturn(mockApplication);
+
+        PowerMockito.mockStatic(ApiService.class);
+
         when(apiService.getMoviesList(getRequest())).thenReturn(io.reactivex.Observable.just(response));
+
         Contracts.Presenter presenter = new MovieListPresenter(movieView);
         presenter.fetchMovies(1);
+
         Mockito.verify(movieView, Mockito.times(1)).populateData(response.getResults());
     }
-
     private Map<String, Object> getRequest() {
         Map<String, Object> map = new HashMap<>();
         map.put("api_key", Constants.API_KEY);
