@@ -56,20 +56,23 @@ public class MovieDetailFragment extends BaseFragment implements Contracts.View 
 
     @BindView(R.id.user_vote_progress)
     DecoView userVoteProgress;
+
     @BindView(R.id.tv_summary)
     TextView tvSummary;
+
     @BindView(R.id.rl_parent)
     RelativeLayout rlParent;
+
     @BindView(R.id.sv_parent)
     ScrollView svParent;
+
     @BindView(R.id.tv_score)
     TextView tvScore;
-
-    private SeriesItem seriesItem;
 
     private final float MAX_RANGE = 10f;
 
     private MovieDetailPresenter presenter;
+
     private Result result;
 
     @Nullable
@@ -85,7 +88,7 @@ public class MovieDetailFragment extends BaseFragment implements Contracts.View 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         presenter = new MovieDetailPresenter(this);
-        seriesItem = new SeriesItem.Builder(ContextCompat.getColor(getActivity(), android.R.color.white))
+        SeriesItem seriesItem = new SeriesItem.Builder(ContextCompat.getColor(getActivity(), android.R.color.white))
                 .setRange(0, MAX_RANGE, MAX_RANGE).setInitialVisibility(true).build();
         userVoteProgress.addSeries(seriesItem);
         presenter.init();
