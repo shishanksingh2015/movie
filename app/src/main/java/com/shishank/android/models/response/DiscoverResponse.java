@@ -37,6 +37,9 @@ public class DiscoverResponse implements Parcelable {
         }
     };
 
+    public DiscoverResponse() {
+    }
+
     @Override
     public int describeContents() {
         return 0;

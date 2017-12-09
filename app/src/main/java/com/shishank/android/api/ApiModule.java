@@ -26,6 +26,16 @@ public class ApiModule {
     @Getter
     private static ApiService apiService;
 
+//    private static ApiModule apiModule;
+//
+//    public static ApiModule getInstance() {
+//        if (apiModule == null) {
+//            apiModule = new ApiModule();
+//        }
+//
+//        return apiModule;
+//    }
+
     @Provides
     @Singleton
     ApiService providesApiService() {

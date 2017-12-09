@@ -15,6 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class MovieListPresenter extends BasePresenter implements Contracts.Presenter {
 
+
     private Contracts.View movieView;
     private boolean isUpdating;
     private Map<String, Object> queryMap;
@@ -22,12 +23,12 @@ public class MovieListPresenter extends BasePresenter implements Contracts.Prese
     public MovieListPresenter(Contracts.View movieView) {
         super();
         this.movieView = movieView;
+        queryMap = new HashMap<>();
+        queryMap.put("api_key", Constants.API_KEY);
     }
 
     @Override
     public void init() {
-        queryMap = new HashMap<>();
-        queryMap.put("api_key", Constants.API_KEY);
         movieView.initView();
     }
 

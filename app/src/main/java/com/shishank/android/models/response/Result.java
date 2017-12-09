@@ -52,6 +52,9 @@ public class Result implements Parcelable{
         }
     };
 
+    public Result() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
