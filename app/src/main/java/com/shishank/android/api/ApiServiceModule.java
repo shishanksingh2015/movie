@@ -6,9 +6,13 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 
-class MockApiService implements ApiService {
+/**
+ * @author shishank
+ */
+
+public class ApiServiceModule implements ApiService {
     @Override
     public Observable<DiscoverResponse> getMoviesList(Map<String, Object> params) {
-        return null;
+        return ApiModule.getApiService().getMoviesList(params);
     }
 }

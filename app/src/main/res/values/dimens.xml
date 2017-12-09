@@ -27,4 +27,6 @@
 
     <dimen name="row_height_8x">64dp</dimen>
     <dimen name="padding_8x">64dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="progress_view_size">60dp</dimen>
 </resources>

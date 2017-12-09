@@ -1,6 +1,11 @@
 package com.shishank.android;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
+
+import com.shishank.android.dao.DatabaseInteractor;
+import com.shishank.android.dao.DatabaseWrapper;
+import com.shishank.android.database.AppDatabase;
 
 import lombok.Getter;
 import timber.log.Timber;
@@ -12,6 +17,12 @@ public class BaseApplication extends Application {
     @Getter
     protected ApiComponent apiComponent;
 
+    @Getter
+    private DatabaseInteractor databaseInteractor;
+
+    @Getter
+    private AppDatabase appDatabase;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -22,6 +33,8 @@ public class BaseApplication extends Application {
         }
 
         apiComponent = DaggerApiComponent.create();
+        appDatabase = Room.databaseBuilder(this, AppDatabase.class, "movieData").build();
+        databaseInteractor = new DatabaseWrapper();
     }
 
     public static BaseApplication getInstance() {

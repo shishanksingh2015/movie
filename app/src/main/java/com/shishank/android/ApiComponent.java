@@ -11,4 +11,7 @@ import dagger.Component;
 public interface ApiComponent {
 
     void inject(BaseActivity baseActivity);
+
+    void inject(BasePresenter basePresenter);
+
 }

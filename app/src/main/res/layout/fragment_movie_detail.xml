@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/btn_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/margin_2x"
+            android:layout_marginRight="@dimen/margin_2x"
+            android:background="@android:color/white"
+            android:text="@string/like"
+            android:textColor="@color/colorPrimary" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_2x"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/user_score"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_2x"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.hookedonplay.decoviewlib.DecoView
+                    android:id="@+id/user_vote_progress"
+                    android:layout_width="@dimen/progress_view_size"
+                    android:layout_height="@dimen/progress_view_size"
+                    android:layout_gravity="bottom|center"
+                    android:layout_margin="@dimen/margin_x"
+                    custom:dv_lineWidth="5dp" />
+
+                <TextView
+                    android:id="@+id/tv_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_x"
+                    android:gravity="center"
+                    android:textColor="@android:color/holo_green_light"
+                    android:textSize="@dimen/text_2x"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_dislike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_2x"
+            android:layout_marginRight="@dimen/margin_2x"
+            android:background="@android:color/white"
+            android:text="@string/dislike"
+            android:textColor="@color/colorPrimary" />
+
+        <ImageView
+            android:id="@+id/iv_movie_poster"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_placeholder" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/sv_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_x"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_x"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_3x"
+                android:textStyle="bold"
+                tools:text="Doctor Strange" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_margin="@dimen/margin_x"
+                android:gravity="center"
+                android:text="@string/summary"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_3x2"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_summary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_margin="@dimen/margin_x"
+                android:gravity="start|right"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_2x"
+                tools:text="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

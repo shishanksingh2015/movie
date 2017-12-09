@@ -2,19 +2,14 @@ package com.shishank.android;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.View;
 
 import com.shishank.android.dialogs.LoadingDialog;
-import com.shishank.android.utils.fragmenttransactionhandler.FragmentTransactionHandler;
 
 public abstract class BaseFragment extends Fragment {
-
-    protected FragmentTransactionHandler handler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        handler = new FragmentTransactionHandler();
     }
 
     @Override
@@ -28,24 +23,17 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        handler.setActivity(getActivity());
-        handler.resume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        handler.pause();
     }
 
     public void onDestroy() {
         super.onDestroy();
-        handler.setActivity(null);
     }
 
-    public FragmentTransactionHandler getHandler() {
-        return handler;
-    }
 
     private LoadingDialog loadingDialog;
 
@@ -58,14 +46,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void showLoadingDialog(int stringResId) {
-        loadingDialog = LoadingDialog.newInstance(getString(stringResId),
-                getString(com.shishank.android.R.string.please_wait), true);
+        loadingDialog = LoadingDialog.newInstance(getString(stringResId));
         loadingDialog.show(getActivity().getSupportFragmentManager(), null);
-        loadingDialog.setCancelListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cancelLoadingDialog();
-            }
-        });
     }
 }

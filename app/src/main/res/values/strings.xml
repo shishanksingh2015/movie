@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidJumpstart</string>
+    <string name="app_name">Movie</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -9,5 +9,17 @@
     <string name="ok">OK</string>
     <string name="please_wait">Please wait</string>
     <string name="internet_slow_or_disconnected">No internet available or very slow.</string>
-    <string name="something_went_wrong">Something went wrong.</string>
+    <string name="something_went_wrong">Something went wrong.Please try again.</string>
+    <string name="image">image</string>
+    <string name="title_activity_movie_list">Movies</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="high_rated">Highest Rated</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="please_wait_while_we_fetch_movies">Please wait, while we fetch movies</string>
+    <string name="like">like</string>
+    <string name="dislike">dislike</string>
+    <string name="summary">Summary :</string>
+    <string name="user_score">User Score</string>
+    <string name="like_this_movie">You have liked this movie</string>
+    <string name="dislike_this_movie">You have Disliked this movie</string>
 </resources>

@@ -12,6 +12,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.schedulers.Schedulers;
+import lombok.Getter;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -21,6 +22,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class ApiModule {
+
+    @Getter
+    private static ApiService apiService;
 
     @Provides
     @Singleton
@@ -61,7 +65,7 @@ public class ApiModule {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(rxAdapter)
                 .build();
-
-        return retrofit.create(ApiService.class);
+        apiService = retrofit.create(ApiService.class);
+        return new ApiServiceModule();
     }
 }

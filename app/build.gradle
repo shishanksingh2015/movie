@@ -24,14 +24,14 @@ task checkstyle(type: Checkstyle) {
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.0'
 
     final API_URL_DEV = "https://api.themoviedb.org/3/";
     final API_URL_PROD = "https://api.themoviedb.org/3/";
 
     defaultConfig {
         applicationId "com.shishank.android"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 26
 
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
@@ -110,17 +110,15 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation "com.android.support:design:$supportLibVersion"
+    implementation "com.android.support:support-v4:$supportLibVersion"
 
     // Use Retrofit for API interaction
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 
-    // design support
-    implementation "com.android.support:design:$supportLibVersion"
-
     // Lombok
-    // https://projectlombok.org/setup/android.html
+
     compileOnly 'org.projectlombok:lombok:1.16.18'
     annotationProcessor "org.projectlombok:lombok:1.16.18"
 
@@ -129,6 +127,7 @@ dependencies {
 
     // Butterknife for view injection
     implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     // Dagger 2
     // Dagger 2 dependencies
@@ -152,12 +151,14 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    implementation 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
 
     // Room
     implementation "android.arch.persistence.room:runtime:1.0.0"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     implementation "android.arch.persistence.room:rxjava2:1.0.0"
 
-    implementation 'com.github.bumptech.glide:glide:4.4.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+    implementation 'jp.wasabeef:glide-transformations:3.0.1'
+
+    compile 'com.github.bmarrdev:android-DecoView-charting:v1.2'
 }
